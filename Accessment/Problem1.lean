@@ -8,12 +8,8 @@ open Finset BigOperators
 
 theorem p1 (a r : ℝ) (n : ℕ) (h : r ≠ 1) :
     a * r^(n + 1) = (a * r^(n + 1) * (r - 1))/(r - 1) := by
-  -- Since division is multiplication by reciprocal
-  -- We first show (r - 1)/(r - 1) = 1
   have h1 : (r - 1)/(r - 1) = 1 := by
     exact div_self (sub_ne_zero.mpr h)
-
-  -- Main proof using calculation steps
   calc a * r^(n + 1) = a * r^(n + 1) * 1 := by rw [mul_one]
     _ = a * r^(n + 1) * ((r - 1)/(r - 1)) := by rw [h1]
     _ = (a * r^(n + 1) * (r - 1))/(r - 1) := by field_simp [h]
@@ -32,8 +28,7 @@ theorem p2 (a r : ℝ) (n : ℕ) (h : r ≠ 1) :
 -- Problem 1
 example {a r : ℝ} (n : ℕ) (h : r ≠ 1) : ∑ i ∈ range (n+1), a * r^i = (a * r^(n+1) - a) / (r-1) :=
   by induction n with
-  | zero =>  -- Simplify the sum range
-  -- Simplify the sum range
+  | zero =>  
   simp
   have h0: r - 1 ≠ 0 := by exact sub_ne_zero.mpr h
   have h1 : a * r - a = a * (r - 1) := by ring
